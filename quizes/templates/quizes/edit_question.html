@@ -1,0 +1,50 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ question_form.as_p }}
+    
+    <div id="answer-formset">
+        {{ answer_formset.management_form }}
+        
+        {% for form in answer_formset %}
+            <div class="form-row">
+                <div>{{ form.as_table }}</div>
+                {% if form.instance.pk %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <button type="button" id="add-answer">Добавить вариант ответа</button>
+    <button type="submit">Сохранить</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formsetContainer = document.getElementById('answer-formset');
+        const addAnswerButton = document.getElementById('add-answer');
+        const totalFormsField = document.getElementById('id_form-TOTAL_FORMS');
+        
+        addAnswerButton.addEventListener('click', function () {
+            const formCount = parseInt(totalFormsField.value);
+            
+            // Клонирование шаблона формы
+            const newForm = formsetContainer.querySelector('.form-row').cloneNode(true);
+            
+            // Обновление атрибутов для нового набора полей
+            const inputs = newForm.querySelectorAll('input, textarea, select');
+            inputs.forEach(function (input) {
+                const name = input.name.replace('__prefix__', formCount);
+                const id = input.id.replace('__prefix__', formCount);
+                input.name = name;
+                input.id = id;
+                input.value = '';
+            });
+            
+            // Добавление новой формы в контейнер
+            formsetContainer.appendChild(newForm);
+            
+            // Обновление общего количества форм
+            totalFormsField.value = formCount + 1;
+        });
+    });
+</script>

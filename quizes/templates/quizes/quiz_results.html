@@ -1,0 +1,7 @@
+<h1>Результаты викторины: {{ quiz.name }}</h1>
+
+{% for answer in answers_data %}
+    <h3>Вопрос: {{ answer.question }}</h3>
+    <p>Ваш ответ: {{ answer.answer }}</p>
+    <p>Правильность: {% if answer.is_correct %}Правильно{% else %}Неправильно{% endif %}</p>
+{% endfor %}

@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 import quizes.urls
+import quizes.views
 import users.urls
 import main.settings as settings
 
@@ -26,7 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('quizes/', include(quizes.urls), name="quizes"),
     path('users/', include(users.urls), name="users"),
+    path("", view=quizes.views.index, name="index")
 ]
 
 if settings.DEBUG:
-    urlpatterns += static("/static", document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

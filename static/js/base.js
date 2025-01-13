@@ -1,22 +1,22 @@
-var text = "Wait pls...";
-var rings = 2;
-var ringSectors = 30;
+// var text = "Wait pls...";
+// var rings = 2;
+// var ringSectors = 30;
 
-document.querySelectorAll('.preloader__ring').forEach((ring, r) => {
-    for (let s = 0; s < ringSectors; ++s) {
-        var sector = document.createElement('div');
-        sector.classList.add('preloader__sector');
-        sector.textContent = text[s] || '';
-        ring.appendChild(sector);
-    }
-});
-$(document).ready(function () {
-    setTimeout(function () {
-        $('.preloader').fadeOut(500, function () {
-            $('#main').fadeIn(500);
-        });
-    }, 3000);
-});
+// document.querySelectorAll('.preloader__ring').forEach((ring, r) => {
+//     for (let s = 0; s < ringSectors; ++s) {
+//         var sector = document.createElement('div');
+//         sector.classList.add('preloader__sector');
+//         sector.textContent = text[s] || '';
+//         ring.appendChild(sector);
+//     }
+// });
+// $(document).ready(function () {
+//     setTimeout(function () {
+//         $('.preloader').fadeOut(500, function () {
+//             $('#main').fadeIn(500);
+//         });
+//     }, 3000);
+// });
 const toggler = document.querySelector('.navbar-toggler');
 const navCollapse = document.querySelector('.navbar-collapse');
 

@@ -3,6 +3,35 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 import uuid
 
+from ckeditor.fields import RichTextField
+
+class Material(models.Model):
+    id = models.AutoField(
+        verbose_name="id",
+        editable=False,
+        primary_key=True
+    )
+    visibleId = models.UUIDField(
+        verbose_name="visibleId",
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    name = models.CharField(
+        verbose_name="name",
+        max_length=25,
+        null=False,
+        blank=False,
+    )
+    text = RichTextField(
+        verbose_name="text",
+        null=False,
+        blank=False,
+    )
+
+    def __str__(self):
+        return self.name
+
 class Topic(models.Model):
     id = models.AutoField(
         verbose_name="id",
@@ -43,7 +72,13 @@ class Quiz(models.Model):
         verbose_name="topic",
         on_delete=models.CASCADE
     )
-
+    material = models.ForeignKey(
+        Material,
+        null=True,
+        related_name='quiz',
+        verbose_name="material",
+        on_delete=models.PROTECT
+    )
     name = models.CharField(
         verbose_name="name",
         max_length=50,

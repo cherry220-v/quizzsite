@@ -10,6 +10,7 @@ from django.conf import settings
 
 from .forms import LoginUserForm, UserPasswordChangeForm, RegisterForm
 from .models import User
+from quizes.models import Quiz, Results
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -35,7 +36,7 @@ def ulogin(request):
         context = {"form": form, "errors": validAuth}
         return render(request, "users/login.html", context=context)
     else:
-        return HttpResponseRedirect(reverse('users:profile'))
+        return HttpResponseRedirect(reverse(request.GET.get('next', 'users:profile')))
 
 def register(request):
     if not request.user.is_authenticated:
@@ -55,27 +56,25 @@ def register(request):
         context = {"form": form}
         return render(request, "users/register.html", context=context)
     else:
-        return HttpResponseRedirect(reverse('users:profile'))
+        return HttpResponseRedirect(reverse(request.GET.get('next', 'users:profile')))
     
 def ulogout(request):
     logout(request)
     return HttpResponseRedirect(reverse('users:login'))
 
-
 @login_required(login_url="users:login")
 def profile(request):
-    created_quizes = eval(str(request.user.created_quizes))
-    completed_quizes = eval(str(request.user.completed_quizes))
-    context = {'user': request.user, 'created_quizes': created_quizes, 'completed_quizes': completed_quizes, 'max_len': max([len(created_quizes), len(completed_quizes)])}
+    user = request.user
+    created_quizes = Quiz.objects.filter(author=user)
+    completed_quizes = request.user.completed_quizzes
+    context = {'user': request.user, 'created_quizes': created_quizes, 'completed_quizes': completed_quizes}
     return render(request, 'users/profile.html', context=context)
 
 def user_page(request, user_id):
-    print(user_id)
     user = get_object_or_404(User, id=user_id)
-    print(user)
-    created_quizes = eval(str(user.created_quizes))
-    completed_quizes = eval(str(user.completed_quizes))
-    context = {'user': request.user, "user_page": user, 'created_quizes': created_quizes, 'completed_quizes': completed_quizes, 'max_len': max([len(created_quizes), len(completed_quizes)])}
+    created_quizes = Quiz.objects.filter(author=user)
+    completed_quizes = user.completed_quizzes
+    context = {'user': request.user, "user_page": user, 'created_quizes': created_quizes, 'completed_quizes': completed_quizes}
     return render(request, 'users/user.html', context=context)
 
 class UserPasswordChange(PasswordChangeView):
