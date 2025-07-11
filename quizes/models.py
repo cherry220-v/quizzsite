@@ -74,10 +74,11 @@ class Quiz(models.Model):
     )
     material = models.ForeignKey(
         Material,
-        null=True,
-        related_name='quiz',
+        related_name="quizzes",
         verbose_name="material",
-        on_delete=models.PROTECT
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE
     )
     name = models.CharField(
         verbose_name="name",
@@ -214,9 +215,21 @@ class Results(models.Model):
         related_name='results',
         on_delete=models.CASCADE
     )
+    currentQuestion = models.ForeignKey(
+        Question,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Current Question"
+    )
     data = models.JSONField(
         verbose_name="data",
-        default=dict,
+        default=lambda: {},
+        blank=True
+    )
+    completed = models.BooleanField(
+        default=False,
+        verbose_name="Completed"
     )
     class Meta:
         constraints = [

@@ -16,45 +16,35 @@
         <meta property="og:image" content="img/og-prev.jpg">
         <meta property="og:site_name" content="NxvxTech">
         <meta property="og:locale" content="ru_RU">
-        <title> Мир кресел · F.I.M.O.Z. </title>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link href="{% static 'css/loader.css' %}" rel="stylesheet">
         {% block head %}{% endblock %}
 </head>
     <body class="h-100 text-center text-white bg-dark">
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">F.I.M.O.Z.</a>
+                    <a class="navbar-brand" href="{% url 'index' %}">QUIZZ</a>
                     <button class="navbar-toggler" type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Главная</a>
+                                <a class="nav-link" aria-current="page" href="{% url 'quizes:search' %}">Квизы</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#chairs">Товары</a>
+                                <a class="nav-link" href="{% url 'quizes:materials_list' %}">Материалы</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#form">Локация</a>
+                                <a class="nav-link" href="{% url 'users:profile' %}">Профиль</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
-        <!-- <div class="preloader">
-            <div class="preloader__ring"></div>
-            <div class="preloader__ring"></div>
-            <div class="preloader__ring"></div>
-            <div class="preloader__ring"></div>
-            <div class="preloader__ring"></div>
-            <div class="preloader__ring"></div>
-        </div> -->
         <main class="w-100 h-100 p-3 mx-auto flex-column" id="main">
             {% block content %}{% endblock %}
         </main>

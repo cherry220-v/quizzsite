@@ -18,7 +18,7 @@ class MaterialForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['quiz', 'text', 'image']
+        fields = ['text', 'image']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 3}),
         }
@@ -27,6 +27,9 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['text', 'isCorrect', 'image']
+        widgets = {
+            "isCorrect": forms.RadioSelect()
+        }
 
 class BaseAnswerFormSet(BaseModelFormSet):
     def clean(self):

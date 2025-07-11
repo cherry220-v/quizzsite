@@ -1,9 +1,41 @@
-<h1>{{ quiz.name }}</h1>
-<p>{{ quiz.description }}</p>
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<title>Quiz - {{ quiz.name }}</title>
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
 
-{% for question in questions %}
-    <h3>{{ question.text }}</h3>
-    {% for answer in question.answers.all %}
-        <p>{{ answer.text }}</p>
-    {% endfor %}
-{% endfor %}
+{% block content %}
+<body class="text-center">
+
+  <div class="form-signin">
+    <form method="post">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">{{ quiz.name }}</h1>
+      <div class="form-floating">
+        <h5>{{ quiz.description|slice:":50" }}</h5>
+      </div>
+      <div class="form-floating">
+        <a href="{% url 'users:user' quiz.author.username %}"><h5>Автор: {{ quiz.author.username }}</h5></a>
+      </div>
+      <div class="form-floating">
+        <h5>{{ quiz.description|slice:":50" }}</h5>
+      </div>
+      <div class="form-floating">
+        <h5>Вопросы:</h5>
+      </div>
+      {% for question in questions %}
+      <div class="form-signin" style="margin-top: 2vh; margin-bottom: 4vh;">
+        <h2 class="form-floating">{{ question.text|slice:":50" }}</h2>
+      </div>
+      {% endfor %}
+
+      <button class="w-100 btn btn-primary" type="submit">Начать</button>
+      {% if quiz.author == usr %}
+      <div class="form-floating">
+        <a href="{% url 'quizes:create_question' quiz.visibleId %}"><h5>Создать вопрос</h5></a>
+      </div>
+      {% endif %}
+    </form>
+  </div>
+  {% endblock %}

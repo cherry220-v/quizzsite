@@ -2,19 +2,13 @@
 {% load static %}
 {% block head %}
     <title>Quizz - Регистрация</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/quiz/index.css' %}">
-    <style>
-        body {
-            background-image: url("{% static 'users/background.jpg' %}");
-            background-size: 100% 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 {% endblock %}
 {% block content %}
     <div class="container">
-    <div class="registration-form">
+    <div class="form-signin">
         <form method="POST">
-            <h3 class="question_title">Регистрация</h3>
+            <h1 class="question_title">Регистрация</h1>
             <br>
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
@@ -23,7 +17,7 @@
             </div>
             <div class="form-error">{{ form.non_field_errors }}</div>
             {% for f in form %}
-                <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+                <h5><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</h5>
                 <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
             <div class="form-group">

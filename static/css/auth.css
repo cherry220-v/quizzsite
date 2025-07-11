@@ -1,0 +1,47 @@
+.card {
+    color: white;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.13);
+    justify-content: center;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 30px 35px;
+}
+.card:hover{
+    color: white;
+    transform: scale(1.001);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.btn {
+    color: white !important;
+    border-color: aliceblue;
+}
+.form-signin {
+    flex-wrap: wrap-reverse;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2vh;
+    color: rgb(226, 226, 226);
+    align-self: center;
+    margin: auto;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 70vw;
+    margin-top: 30vh;
+    padding: 2vw;
+    border: #ffffff solid 3px;
+    border-radius: 5px;
+   }
+   .form-floating {
+     margin-inline-start: 10px;
+     margin-inline-end: 10px;
+   }
+     .form-control {
+         margin: 5px;
+     }
+     .floating-password{
+       background-color: black;
+     }
+     .label {
+       background-color: black;
+     }

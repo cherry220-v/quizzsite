@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Topic, Quiz, Question, Answer, Results
+from .models import Topic, Quiz, Question, Answer, Results, Material
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
@@ -39,3 +39,10 @@ class ResultsAdmin(admin.ModelAdmin):
     list_filter = ('quiz', 'user')                                       # Фильтры
     readonly_fields = ('visibleId',)                                     # Только для чтения
     ordering = ('quiz',)
+
+@admin.register(Material)
+class MaterialAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'text')                                # Поля списка
+    search_fields = ('visibleId',)                          # Поля для поиска
+    readonly_fields = ('visibleId',)                                     # Только для чтения
+    ordering = ('name',)

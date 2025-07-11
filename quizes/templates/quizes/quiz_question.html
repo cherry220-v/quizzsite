@@ -1,12 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<title>Quizz - Результаты</title>
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form-signin">
 <h1>{{ quiz.name }} - Вопрос: {{ question.text }}</h1>
 
 <form method="post">
     {% csrf_token %}
     {% for answer in answers %}
-        <div>
-            <input type="radio" id="answer{{ answer.id }}" name="answer" value="{{ answer.id }}">
-            <label for="answer{{ answer.id }}">{{ answer.text }}</label>
-        </div>
+    <div>
+        <input type="radio" id="answer{{ answer.visibleId }}" name="answer"
+            value="{{ answer.visibleId }}">
+        <label for="answer{{ answer.visibleId }}">{{ answer.text }}</label>
+    </div>
     {% endfor %}
     <button type="submit">Ответить</button>
 </form>
+</div>
+{% endblock %}

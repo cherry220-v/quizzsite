@@ -7,7 +7,7 @@ from quizes.models import Quiz, Results
 class User(AbstractUser):
     photo = models.ImageField(
         upload_to="users/avatars/",
-        default="users/default.png",
+        default="users/default.webp",
         blank=True,
         null=True,
         verbose_name="photo"

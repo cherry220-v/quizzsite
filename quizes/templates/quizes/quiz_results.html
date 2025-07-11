@@ -1,7 +1,33 @@
-<h1>Результаты викторины: {{ quiz.name }}</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<title>Quizz - Результаты</title>
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form-signin">
+    <h1>Результаты викторины: {{ result.quiz.name }}</h1>
 
-{% for answer in answers_data %}
-    <h3>Вопрос: {{ answer.question }}</h3>
-    <p>Ваш ответ: {{ answer.answer }}</p>
-    <p>Правильность: {% if answer.is_correct %}Правильно{% else %}Неправильно{% endif %}</p>
-{% endfor %}
+    {% if answers_data %}
+    {% for answer in answers_data %}
+    <div class="question-block">
+        <h5>Вопрос {{ forloop.counter }}: {{ answer.question }}</h5>
+        <h5><strong>Ваш ответ:</strong> {{ answer.answer }}</h5>
+        <h5>
+            <strong>Правильность:</strong>
+            {% if answer.is_correct %}
+            <span class="correct">Правильно</span>
+            {% else %}
+            <span class="incorrect">Неправильно</span>
+            {% endif %}
+        </h5>
+    </div>
+    {% if not forloop.last %}
+        <hr class="featurette-divider">
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <p>Результаты пока недоступны.</p>
+    {% endif %}
+</div>
+{% endblock %}

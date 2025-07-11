@@ -70,8 +70,8 @@ def profile(request):
     context = {'user': request.user, 'created_quizes': created_quizes, 'completed_quizes': completed_quizes}
     return render(request, 'users/profile.html', context=context)
 
-def user_page(request, user_id):
-    user = get_object_or_404(User, id=user_id)
+def user_page(request, username):
+    user = get_object_or_404(User, username=username)
     created_quizes = Quiz.objects.filter(author=user)
     completed_quizes = user.completed_quizzes
     context = {'user': request.user, "user_page": user, 'created_quizes': created_quizes, 'completed_quizes': completed_quizes}
